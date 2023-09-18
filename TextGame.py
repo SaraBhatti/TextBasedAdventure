@@ -95,3 +95,9 @@ def updateVariables(room):
     distanceWalked =+ 1
     currentRoom = room
 
+# story
+story = 'After fighting off a menacing zombie, you are left injured and stumble into an abandoned mansion. \
+    With only one leg remaining, you need to find a first aid kit fast or you may meet an untimely fate. You \
+        have about 10 minutes remaining and a very limited number of moves you can make, \
+           and you know there is a first aid kit somewhere in this mansion. \
+              You just need to find it. Good luck!' 
