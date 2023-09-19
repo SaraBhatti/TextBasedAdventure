@@ -1,4 +1,4 @@
-# Function to handle input and validate choices
+# Function to handle player input and validate choices
 def get_player_choice(prompt, valid_choices):
     while True:
         choice = input(prompt).strip().lower()
@@ -31,9 +31,11 @@ def main():
     progress = 0
     has_companion = False
     has_valuable_artifact = False
+    distance_traveled = 0
 
     while True:
         print(f"You are currently in the {current_room}.")
+        print(f"Distance Traveled: {distance_traveled} rooms")
         print("Options: explore, quit")
         choice = get_player_choice("What would you like to do? ", ["explore", "quit"])
 
@@ -43,6 +45,7 @@ def main():
 
         if choice == "explore":
             progress += 1
+            distance_traveled += 1
             print(f"You've explored {progress} rooms.")
 
             if current_room == "hallway":
