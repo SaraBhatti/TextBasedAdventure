@@ -1,3 +1,8 @@
+from colorama import Fore, Style, init
+
+# Initialize colorama
+init(autoreset=True)
+
 # Function to handle player input and validate choices
 def get_player_choice(prompt, valid_choices):
     while True:
@@ -17,6 +22,9 @@ def handle_encounter(encounter_name, success_text, failure_text):
     else:
         print(failure_text)
         return False
+
+def stylize_text(text, color, style):
+    return f"{color}{style}{text}{Style.RESET_ALL}"
 
 def main():
     name = input("Enter your name: ")
@@ -70,9 +78,9 @@ def main():
             elif current_room == "basement":
                 if has_valuable_artifact and has_companion:
                     if handle_encounter("In the attic, you confront a zombie threatening the young woman. Do you want to use the valuable artifact to defeat the zombie?", "You defeat the zombie and save the young woman!", "The zombie overpowers you."):
-                        print("Congratulations, you've defeated the zombie and saved the young woman!")
-                        print("As you leave the house, you notice the young woman's spirit is at peace.")
-                        print("You've successfully completed your adventure!")
+                        print(stylize_text("Congratulations, you've defeated the zombie and saved the young woman!", Fore.GREEN, Style.BRIGHT))
+                        print(stylize_text("As you leave the house, you notice the young woman's spirit is at peace.", Fore.CYAN, Style.NORMAL))
+                        print(stylize_text("You've successfully completed your adventure!", Fore.YELLOW, Style.BRIGHT))
                         break  # End the game
                 else:
                     print("You enter the attic, but you are not prepared to confront the zombie. You should explore further and collect necessary items.")
