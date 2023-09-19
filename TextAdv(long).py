@@ -27,10 +27,11 @@ within the game. That complexity could be great, if you’d like to make this in
 project. *Hint hint.
 
 """
-from time import sleep
+from time import sleep ## sleep funciton to slow down the terminal
 
 story = 'After fighting off a menacing zombie, you are left injured and stumble into an abandoned mansion. With only one leg remaining, you need to find a first aid kit fast or you may meet an untimely fate. You know there is a first aid kit somewhere in this mansion. You just need to find it. Good luck!' 
 
+## initialising variables to be used later
 swords = False
 keys = False
 firstAid = False
@@ -38,26 +39,29 @@ zombie = False
 food = False
 knife = False
 crowbar = False
-movesRemaining = 15
-            
-def movesLeft():
+movesRemaining = 20
+
+## a counter for the moves remaining
+## every input decreases it 
+def movesLeft(x):
     global movesRemaining
-    movesRemaining -= 1
-    print(f"You have {movesRemaining} minutes remaining.")
-    if movesRemaining == 0:
+    movesRemaining -= x
+    print(f"You now have {movesRemaining} minutes remaining.")
+    if movesRemaining <= 0:
         print("Your injuries have gotten the better of you. Better luck next time!")
         quit()
 
+## creating a function for each room makes navigation slightly easier
 def hallWay():
-    sleep(1)
-    directions = ['forward', 'left', 'right']
-    movesLeft()
+    sleep(1) ## to avoid bursts of text
+    directions = ['forward', 'left', 'right'] ## list of accepted directions
+    movesLeft(1)
     print("You have made into the hallway. Behind you is the entrance you came from, but you don't want to go back out there! Would you like to go forward, left or right?")
     pathPicker = ""
-    while pathPicker not in directions:
+    while pathPicker not in directions: ## cycle through until valid input is entered
         pathPicker = input("Choose forward, left or right: ").lower()
         if pathPicker == 'forward':
-            livingRoom()
+            livingRoom() ## calling the functions of other rooms
         elif pathPicker == 'left':
             bedroom()
         elif pathPicker == 'right':
@@ -68,14 +72,14 @@ def hallWay():
 def livingRoom():
     sleep(1)
     directions = ['backward', 'left', 'right']
-    global swords
+    global swords ## calling variables to be changed/updated
     global keys
-    movesLeft()
-    if swords == False and keys == False:
+    movesLeft(1)
+    if swords == False and keys == False: ## the process of collecting/interacting with an item
         print("You have entered the living room. Here you find a set of keys and some decorative swords. Would you like to pick them up?")
-        haveSwordKeys = input('Yes or No: ').lower()
+        haveSwordKeys = input('Yes or No: ').lower() ## to accept any accidental caps
         if haveSwordKeys == 'yes':
-            swords = True
+            swords = True ## updating the variable so it no longer triggers the if statement
             keys = True
             print("You now have a sword and a key in your inventory! Where would you like to go?")
     else: 
@@ -84,7 +88,8 @@ def livingRoom():
     while pathPicker not in directions:
         pathPicker = input('Choose forward, left, right or backward: ').lower()
         if pathPicker == 'forward':
-            print("You find a door towards a garden. You peak outside the window and it just looks so scary out there. Consider it a dead end.")
+            print("You find a door towards a garden. You peek outside the window and it just looks so scary out there. Consider it a dead end.")
+            movesLeft(1)
         elif pathPicker == 'left':
             bathroom()
         elif pathPicker == 'right':
@@ -100,15 +105,16 @@ def kitchen():
     global food
     global knife
     global movesRemaining
-    movesLeft()
+    movesLeft(1)
     if food == False and knife == False:
         print("You have entered the kitchen, where some food and a knife instantly catch your eye. Would you like to collect these items? ")
         haveFoodKnife = input('Yes or No: ').lower()
-        if haveFoodKnife == 'yes':
+        if haveFoodKnife == 'yes': ## the food increases the amount of minutes remaining
             food = True
             knife = True
-            movesRemaining += 3
-            print(f"You have now collected these items in your invetory. You now have {movesRemaining} minutes left thanks to the food in your bag. There are no doors to your right or left. Ahead of you there is a pantry and the hallway is behind you Where would you like to go?")
+            print("You have now added these items to your inventory.")
+            movesLeft(-3)
+            print("There are no doors to your right or left. Ahead of you there is a pantry and the hallway is behind you Where would you like to go?")
     else:
         print("You have entered the kitchen. It's quite small and there are no doors to your right or left. Where would you like to go?")
     pathPicker = ""
@@ -116,6 +122,7 @@ def kitchen():
         pathPicker = input('Choose forward or backward: ').lower()
         if pathPicker == 'forward':
             print("You walk over to the pantry and the doors are jammed shut. Consider this a dead end.")
+            movesLeft(1)
         elif pathPicker == 'backward':
             hallWay()
         else:
@@ -128,7 +135,7 @@ def bedroom():
     global zombie
     global swords
     global knife
-    movesLeft()
+    movesLeft(1)
     if keys == False:
         print("You have found the bedroom, but the door is locked. The key is somewhere in the house and you need to find it to enter. You turn around head back.")
         hallWay()
@@ -150,7 +157,7 @@ def bathroom():
     sleep(1)
     directions = ['right', 'backward']
     global crowbar
-    movesLeft()
+    movesLeft(1)
     bathroomStory = "You have now entered the bathroom. You see a bath tub, a toilet and a door back to the living room on your right."
     crowbarConfirm = "You have now added the crowbar to your inventory."
     crowbarCheck = "You also see a crowbar lying on the ground. Would you like to pick it up?"
@@ -160,6 +167,8 @@ def bathroom():
         if haveCrowbar == 'yes':
             crowbar = True
             print(crowbarConfirm)
+    else:
+        print(f"{bathroomStory}")
     pathPicker = ""
     while pathPicker not in directions:
         pathPicker = input('Choose right or backward: ').lower()
@@ -173,28 +182,28 @@ def bathroom():
 def attic():
     sleep(1)
     global crowbar
-    movesLeft()
+    global movesRemaining
+    movesLeft(1)
     if crowbar == False:
         print("You have now reached the attic. However the door seems to be locked somehow, but not by a key. You might be able to pry it open with the right tools... Why not explore and see what you find?")
         livingRoom()
     else:
         print("You have now reached the attic. You use the crowbar to force the door open and you climb inside. You turn on the light... Oh wow! You have found the first aid kit! You're not a doctor but you give everything you have into fixing that leg of yours.")
         sleep(2)
-        print("You've done it! You are safe in the house and you're no longer at risk of dying. Well done on completing the game! You are a true adventurer!")
+        print(f"You've done it! You made it with {movesRemaining} minutes left! You are safe in the house and you're no longer at risk of dying. Well done on completing the game! You are a true adventurer!")
         quit()
-
 
 def zombieKiller():
     sleep(1)
     global zombie
     global swords
     global knife
-    movesLeft()
     fightStory1 = "It is a tough battle but you obliterate the and throw its dismantled corpse outside the window through a small crack you found!"
     fightStory2 = " With the zombie gone, you look around and see a door to a bathroom up ahead."
-    print("You find a zombie! How did it even get in? That doesn't matter though. It needs to die. Are you ready to fight?")
+    print(f"You find a zombie! How did it even get in? That doesn't matter though. It needs to die. Are you ready to fight at the cost of 5 minutes?")
     killZombie = input("Yes or No: ").lower()
     if killZombie == 'yes':
+        movesLeft(5)
         if swords == True and knife == True:
             print("Would you like to use your knife or sword for this battle?")
             choiceWeapon = input('Knife or Sword?: ').lower()
@@ -216,6 +225,7 @@ if begin == 'yes':
     print(f"Okay {name}, fasten your seatbelt, and let's get to it... ")
     sleep(1)
     print (story)
+    print("You will have '20 minutes' to get through the game, with every move reducing your time by a minute. Some acts will reduce it faster and some items will increase it. Make your choices wisely!")
     realBegin = ""
     while realBegin != 'yes' and realBegin != 'no':
         realBegin = input("Are you ready? Enter yes or no: ").lower()
