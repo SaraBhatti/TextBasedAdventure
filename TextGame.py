@@ -1,103 +1,111 @@
-room1 = "Living Room"
-room2 = "Bedroom"
-room3 = "Kitchen"
+#Welcome to the game
+name = input("Enter your name: ")
+print(f"Welcome to the Haunted House, {name}!")
+print("The house has a legend, the legend of the lost treasure.")
+print("You have always wanted to go to the house, but something always held you back. Today was different.")
 
-rooms = {
-    'start': {
-        'description': 'You are in a hunted house. There is a door to your north.',
-        'north': 'room1'
-    },
-    'room1': {
-        'description': 'You are in room 1. There is a door to your east and south.',
-        'east': 'room2',
-        'south': 'start'
-    },
-    'room2': {
-        'description': 'You are in room 2. There is a door to your west and south.',
-        'west': 'room1',
-        'south': 'room3'
-    },
-    'room3': {
-        'description': 'You are in room 3. You found the treasure! Congratulations!',
-        'end': True
-    }
-}
+# Aim of the game is to reach the attic
+print("There was a face in the attic window, a face of a young woman... Did she need our help?")
+print("Something drew you in; you had to find out who she was...")
+print("With a gust of wing, the door blew open, you enter the house...")
 
-def show_room(room):
-    print(room['description'])
+#Step count
+step_count = 0
 
-    if 'north' in room:
-        print('There is a door to your north.')
-    if 'east' in room:
-        print('There is a door to your east.')
-    if 'south' in room:
-        print('There is a door to your south.')
-    if 'west' in room:
-        print('There is a door to your west.')
+choice = input("On the floor, you see there is a sword and some keys. Do you want to pick them up? (please enter 'Yes' or 'No') ")
 
-def get_action(room):
-    while True:
-        action = input('What do you want to do? ').lower().strip()
+if choice == 'Yes':
+    print(f"Excellent choice, {name}, these will be useful!")
+    step_count += 1
+    print(f"Step count: {step_count}")
+    print(f"You now enter the hallway. Watch out, {name}, a zombie has followed you into the house!")
+    choice2 = input("Where would you like to go? Select: Pantry, Kitchen, Stairs, or the Bedroom: ")
+elif choice == 'No':
+    print(f"Bad move, {name}, you needed those items.")
+    print("GAME OVER")
+    quit()
+else:
+    print("Invalid choice. Please enter Yes or No")
 
-        if action == 'north' and 'north' in room:
-            return room['north']
-        elif action == 'east' and 'east' in room:
-            return room['east']
-        elif action == 'south' and 'south' in room:
-            return room['south']
-        elif action == 'west' and 'west' in room:
-            return room['west']
+if choice2 == "Pantry":
+    print("There is nowhere to go; the Zombie has eaten your brains.")
+    print("You are now dead.")
+    print("GAME OVER")
+    quit()
+elif choice2 == "Kitchen":
+    print("You find some food and a knife.")
+    knife = input("Would you like to pick them up? Yes or No? ")
+    step_count += 1
+
+    if knife == "Yes":
+        print(f"Smart move, {name}, these will be useful!")
+        step_count += 1
+        print(f"Step count: {step_count}")
+    elif knife == "No":
+        print("That may have been a mistake!")
+    else:
+        print("Invalid choice. Please enter Yes or No")
+elif choice2 == "Stairs":
+    print("Let's see what's up here.")
+    step_count += 1
+    print(f"Step count: {step_count}")
+elif choice2 == "Bedroom":
+    print("You found a First Aid kit.")
+    firstaid = input("Do you want to take it with you? ")
+    step_count += 1
+
+    if firstaid == "Yes":
+        print(f"Smart move, {name}, it will be useful!")
+        step_count += 1
+        print(f"Step count: {step_count}")
+    elif firstaid == "No":
+        print("That may have been a mistake!")
+    else:
+        print("Invalid choice. Please enter Yes or No")
+else:
+    print("Invalid choice. Please enter Pantry, Kitchen, Stairs, or Bedroom.")
+
+attic_key = False
+attic_sword = False
+attic_zombie_alive = True
+
+while attic_zombie_alive:
+    choice3 = input("You are in the attic. There is a young woman trapped by a zombie. Do you want to use the items you collected to save her? (please enter 'Yes' or 'No') ")
+
+    if choice3 == 'Yes':
+        if attic_key and attic_sword:
+            print(f"You bravely use the sword to defeat the zombie and rescue the young woman, {name}! Congratulations, you win!")
+            print(f"Step count: {step_count}")
+            break
         else:
-            print('Invalid action. Try again.')
+            print("You need both the sword and the keys to save the young woman. Keep looking!")
+    elif choice3 == 'No':
+        print("You hesitate and decide not to take action. The zombie attacks you and eats your brains.")
+        print("GAME OVER")
+        quit()
+    else:
+        print("Invalid choice. Please enter Yes or No")
 
-# Shah's Work
+    if not attic_key:
+        attic_key_choice = input("You notice a set of keys in the attic. Would you like to pick them up? (please enter 'Yes' or 'No') ")
+        if attic_key_choice == 'Yes':
+            attic_key = True
+            step_count += 1
+            print(f"You picked up the keys. Step count: {step_count}")
+        elif attic_key_choice == 'No':
+            print("You leave the keys behind.")
+        else:
+            print("Invalid choice. Please enter Yes or No")
 
-room1 = "Living Room"
-room2 = "Bedroom"
-room3 = "Kitchen"
-# add 3 other rooms
-
-#
-distanceWalked = 0 # counts how many moves they have made or walked
-movesAllowed = 10
-currentRoom = ""
-#Room and Description
-
-rooms = {room1: "Description 1", room2: "Description 2", room3: "Description 3"}
-
-print("you have entered a haunted house and walked through the front door you see a zombie and you need to head to the kitchen to get a knife")
-print("you are in the hallway entrance, please move towards the living room to then access the kitchen")
+    if not attic_sword:
+        attic_sword_choice = input("You also see a sword in the attic. Would you like to pick it up? (please enter 'Yes' or 'No') ")
+        if attic_sword_choice == 'Yes':
+            attic_sword = True
+            step_count += 1
+            print(f"You picked up the sword. Step count: {step_count}")
+        elif attic_sword_choice == 'No':
+            print("You leave the sword behind.")
+        else:
+            print("Invalid choice. Please enter Yes or No")
 
 
-move = input("What room would you like to go in:")
-
-
-
-#switch statement 
-if age > 90:
-    print("You are too old to party, granny.")
-elif age < 0:
-    print("You're yet to be born")
-elif age >= 18:
-    print("You are allowed to party")
-else: 
-    "You're too young to party"
-
-# Output: You are too old to party, granny.
-
-def roomDesc(currentRoom):
-    print (rooms[currentRoom])
-
-def roomsEntered(distanceWalked):
-    print("You have entered {rdistanceWalked} and have x amount of life remaininng")
-
-def updateVariables(room):
-    distanceWalked =+ 1
-    currentRoom = room
-
-# story
-story = 'After fighting off a menacing zombie, you are left injured and stumble into an abandoned mansion. \
-    With only one leg remaining, you need to find a first aid kit fast or you may meet an untimely fate. You \
-        have about 10 minutes remaining and a very limited number of moves you can make, \
-           and you know there is a first aid kit somewhere in this mansion. \
-              You just need to find it. Good luck!' 
