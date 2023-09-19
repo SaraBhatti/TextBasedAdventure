@@ -1,6 +1,7 @@
+# import library
 import random
 
-# Function to handle player input and validate choices
+# Function to handle input and choices
 def get_player_choice(prompt, valid_choices):
     while True:
         choice = input(prompt).strip().lower()
