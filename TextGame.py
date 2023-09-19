@@ -1,6 +1,6 @@
 from colorama import Fore, Style, init
 
-# Initialize colorama
+# Initialise colorama
 init(autoreset=True)
 
 # Function to handle player input and validate choices
