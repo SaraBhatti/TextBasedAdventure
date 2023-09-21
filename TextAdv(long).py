@@ -29,6 +29,14 @@ project. *Hint hint.
 """
 from time import sleep ## sleep funciton to slow down the terminal
 
+from colorama import Fore, Style, init
+
+# Initialize colorama
+init(autoreset=True)
+
+def stylize_text(text, color, style):
+    return f"{color}{style}{text}{Style.RESET_ALL}"
+
 story = 'After fighting off a menacing zombie, you are left injured and stumble into an abandoned mansion. With only one leg remaining, you need to find a first aid kit fast or you may meet an untimely fate. You know there is a first aid kit somewhere in this mansion. You just need to find it. Good luck!' 
 
 ## initialising variables to be used later
@@ -46,9 +54,9 @@ movesRemaining = 20
 def movesLeft(x):
     global movesRemaining
     movesRemaining -= x
-    print(f"You now have {movesRemaining} minutes remaining.")
+    print(stylize_text(f"You now have {movesRemaining} minutes remaining.", Fore.CYAN, Style.BRIGHT))
     if movesRemaining <= 0:
-        print("Your injuries have gotten the better of you. Better luck next time!")
+        print(stylize_text("Your injuries have gotten the better of you. Better luck next time!", Fore.RED, Style.BRIGHT))
         quit()
 
 ## creating a function for each room makes navigation slightly easier
@@ -112,7 +120,7 @@ def kitchen():
         if haveFoodKnife == 'yes': ## the food increases the amount of minutes remaining
             food = True
             knife = True
-            print("You have now added these items to your inventory.")
+            print(stylize_text("You have now added these items to your inventory.", Fore.RED, Style.BRIGHT))
             movesLeft(-3)
             print("There are no doors to your right or left. Ahead of you there is a pantry and the hallway is behind you Where would you like to go?")
     else:
@@ -190,7 +198,7 @@ def attic():
     else:
         print("You have now reached the attic. You use the crowbar to force the door open and you climb inside. You turn on the light... Oh wow! You have found the first aid kit! You're not a doctor but you give everything you have into fixing that leg of yours.")
         sleep(2)
-        print(f"You've done it! You made it with {movesRemaining} minutes left! You are safe in the house and you're no longer at risk of dying. Well done on completing the game! You are a true adventurer!")
+        print(stylize_text(f"You've done it! You made it with {movesRemaining} minutes left! You are safe in the house and you're no longer at risk of dying. Well done on completing the game! You are a true adventurer!", Fore.RED, Style.BRIGHT))
         quit()
 
 def zombieKiller():
@@ -211,21 +219,21 @@ def zombieKiller():
         elif swords == True and knife == False:
             print(f"You have chosen to fight. You enter the room and retrieve your sword from your inventory. {fightStory1} The fight has drained you! You must find the first aid kit fast! {fightStory2}")
     else: 
-        print("Well then you can't proceed any further in this room. You turn around and head back.")
+        print(stylize_text("Well then you can't proceed any further in this room. You turn around and head back.", Fore.RED, Style.BRIGHT))
         hallWay()
     zombie = True
     bedroom()
 
-print("Hello! Welcome to Text Adventure! Would you like to begin?")
+print(stylize_text("Hello! Welcome to Text Adventure! Would you like to begin?", Fore.BLUE, Style.BRIGHT))
 begin = input("Enter yes to begin your adventure: ").lower()
 if begin == 'yes':
-    print("Let's go!")
+    print(stylize_text("Let's go!", Fore.RED, Style.BRIGHT))
     sleep(1)
     name = input("What is your name? ")
-    print(f"Okay {name}, fasten your seatbelt, and let's get to it... ")
+    print(stylize_text(f"Okay {name}, fasten your seatbelt, and let's get to it... ", Fore.MAGENTA, Style.BRIGHT))
     sleep(1)
     print (story)
-    print("You will have '20 minutes' to get through the game, with every move reducing your time by a minute. Some acts will reduce it faster and some items will increase it. Make your choices wisely!")
+    print(stylize_text("You will have '20 minutes' to get through the game, with every move reducing your time by a minute. Some acts will reduce it faster and some items will increase it. Make your choices wisely!", Fore.RED, Style.BRIGHT))
     realBegin = ""
     while realBegin != 'yes' and realBegin != 'no':
         realBegin = input("Are you ready? Enter yes or no: ").lower()
