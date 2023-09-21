@@ -240,7 +240,7 @@ if begin == 'yes':
         if realBegin == 'yes':
             hallWay()
         elif realBegin == 'no':
-            print("What a wimp! Come back when you've toughened up a little. Until then...")
+            print(stylize_text("What a wimp! Come back when you've toughened up a little. Until then...", Fore.RED, Style.BRIGHT))
             quit()
         else:
             print("Please enter Yes or No: ")
