@@ -90,6 +90,8 @@ def livingRoom():
             swords = True ## updating the variable so it no longer triggers the if statement
             keys = True
             print("You now have a sword and a key in your inventory! Where would you like to go?")
+         else:
+            print("Your loss... you'll regret that later. Come back to the living room when you do. Where would you like to go? ")
     else: 
         print("You have entered the living room, which is now empty. It's actually quite depressing. Where would you like to go?")
     pathPicker = ""
@@ -122,7 +124,9 @@ def kitchen():
             knife = True
             print(stylize_text("You have now added these items to your inventory.", Fore.RED, Style.BRIGHT))
             movesLeft(-3)
-            print("There are no doors to your right or left. Ahead of you there is a pantry and the hallway is behind you Where would you like to go?")
+            print("There are no doors to your right or left. Ahead of you there is a pantry and the hallway is behind you. Where would you like to go?")
+        else:
+            print("That's brave. You may regret that later. Just come back when you do. Where would you like to go? ")
     else:
         print("You have entered the kitchen. It's quite small and there are no doors to your right or left. Where would you like to go?")
     pathPicker = ""
