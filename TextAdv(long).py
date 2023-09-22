@@ -42,7 +42,7 @@ from time import sleep
 mixer.init()
 mixer.music.load("Z1.mp3")
 mixer.music.play()
-sleep(10)
+sleep(20)
 
 story = 'After fighting off a menacing zombie, you are left injured and stumble into an abandoned mansion. With only one leg remaining, you need to find a first aid kit fast or you may meet an untimely fate. You know there is a first aid kit somewhere in this mansion. You just need to find it. Good luck!' 
 
@@ -220,6 +220,10 @@ def zombieKiller():
     fightStory1 = "It is a tough battle but you obliterate the and throw its dismantled corpse outside the window through a small crack you found!"
     fightStory2 = " With the zombie gone, you look around and see a door to a bathroom up ahead."
     print(f"You find a zombie! How did it even get in? That doesn't matter though. It needs to die. Are you ready to fight at the cost of 5 minutes?")
+    mixer.init()
+    mixer.music.load("Z2.mp3")
+    mixer.music.play()
+    
     killZombie = input("Yes or No: ").lower()
     if killZombie == 'yes':
         movesLeft(5)
@@ -237,6 +241,10 @@ def zombieKiller():
 
 print(stylize_text("Hello! Welcome to Text Adventure! Would you like to begin?", Fore.BLUE, Style.BRIGHT))
 while True: ## keeps running until conditions are met
+    mixer.init()
+    mixer.music.load("Z1.mp3")
+    mixer.music.play()
+    sleep(20)
     begin = input("Enter yes to begin your adventure: ").lower()
     if begin == 'yes':
         print(stylize_text("Let's go!", Fore.RED, Style.BRIGHT))
