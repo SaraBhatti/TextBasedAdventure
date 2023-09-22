@@ -37,6 +37,13 @@ init(autoreset=True)
 def stylize_text(text, color, style):
     return f"{color}{style}{text}{Style.RESET_ALL}"
 
+from pygame import mixer
+from time import sleep
+mixer.init()
+mixer.music.load("Z1.mp3")
+mixer.music.play()
+sleep(10)
+
 story = 'After fighting off a menacing zombie, you are left injured and stumble into an abandoned mansion. With only one leg remaining, you need to find a first aid kit fast or you may meet an untimely fate. You know there is a first aid kit somewhere in this mansion. You just need to find it. Good luck!' 
 
 ## initialising variables to be used later
@@ -90,7 +97,7 @@ def livingRoom():
             swords = True ## updating the variable so it no longer triggers the if statement
             keys = True
             print("You now have a sword and a key in your inventory! Where would you like to go?")
-         else:
+        else:
             print("Your loss... you'll regret that later. Come back to the living room when you do. Where would you like to go? ")
     else: 
         print("You have entered the living room, which is now empty. It's actually quite depressing. Where would you like to go?")
