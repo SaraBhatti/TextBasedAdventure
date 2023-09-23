@@ -69,6 +69,14 @@ def movesLeft(x):
     print(stylize_text(f"You now have {movesRemaining} minutes remaining.", Fore.CYAN, Style.BRIGHT))
     if movesRemaining <= 0:
         print(stylize_text("Your injuries have gotten the better of you. Better luck next time!", Fore.RED, Style.BRIGHT))
+        
+        audio_url = 'http://soundfxcenter.com/holiday-and-festive/halloween/8d82b5_Zombie_Talking_Sound_Effect.mp3'
+
+        response = requests.get(audio_url, stream=True)
+        pygame.mixer.init()
+        audio_stream = io.BytesIO(response.content)
+        pygame.mixer.music.load(audio_stream)
+        pygame.mixer.music.play()
         quit()
 
 ## creating a function for each room makes navigation slightly easier
@@ -225,12 +233,18 @@ def zombieKiller():
     fightStory1 = "It is a tough battle but you obliterate the and throw its dismantled corpse outside the window through a small crack you found!"
     fightStory2 = " With the zombie gone, you look around and see a door to a bathroom up ahead."
     print(f"You find a zombie! How did it even get in? That doesn't matter though. It needs to die. Are you ready to fight at the cost of 5 minutes?")
-    mixer.init()
-    mixer.music.load("Z2.mp3")
-    mixer.music.play()
     
+
     killZombie = input("Yes or No: ").lower()
     if killZombie == 'yes':
+        audio_url = 'http://soundfxcenter.com/holiday-and-festive/halloween/8d82b5_Zombie_Screaming_Sound_Effect.mp3'
+
+        response = requests.get(audio_url, stream=True)
+        pygame.mixer.init()
+        audio_stream = io.BytesIO(response.content)
+        pygame.mixer.music.load(audio_stream)
+        pygame.mixer.music.play()
+
         movesLeft(5)
         if swords == True and knife == True:
             print("Would you like to use your knife or sword for this battle?")
