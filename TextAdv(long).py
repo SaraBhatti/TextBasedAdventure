@@ -37,12 +37,17 @@ init(autoreset=True)
 def stylize_text(text, color, style):
     return f"{color}{style}{text}{Style.RESET_ALL}"
 
-from pygame import mixer
-from time import sleep
-mixer.init()
-mixer.music.load("Z1.mp3")
-mixer.music.play()
-sleep(20)
+import requests
+import pygame.mixer
+import io
+
+audio_url = 'https://bigsoundbank.com/UPLOAD/mp3/2107.mp3'
+
+response = requests.get(audio_url, stream=True)
+pygame.mixer.init()
+audio_stream = io.BytesIO(response.content)
+pygame.mixer.music.load(audio_stream)
+pygame.mixer.music.play()
 
 story = 'After fighting off a menacing zombie, you are left injured and stumble into an abandoned mansion. With only one leg remaining, you need to find a first aid kit fast or you may meet an untimely fate. You know there is a first aid kit somewhere in this mansion. You just need to find it. Good luck!' 
 
@@ -241,10 +246,6 @@ def zombieKiller():
 
 print(stylize_text("Hello! Welcome to Text Adventure! Would you like to begin?", Fore.BLUE, Style.BRIGHT))
 while True: ## keeps running until conditions are met
-    mixer.init()
-    mixer.music.load("Z1.mp3")
-    mixer.music.play()
-    sleep(20)
     begin = input("Enter yes to begin your adventure: ").lower()
     if begin == 'yes':
         print(stylize_text("Let's go!", Fore.RED, Style.BRIGHT))
